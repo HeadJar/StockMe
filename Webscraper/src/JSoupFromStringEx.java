@@ -15,7 +15,7 @@ public class JSoupFromStringEx {
 
         Document doc = Jsoup.connect(url).get();
 
-        Elements outerDiv = doc.getElementsByClass("push-data aktien-big-font text-nowrap no-padding-at-all");
+        Elements outerDiv = doc.getElementsByClass("push-data");
 
 
         String title = doc.title();
