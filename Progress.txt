@@ -1,0 +1,8 @@
+So far we are able to get ticker info for stocks 
+And have a basic ui
+
+We need to still link our code to the UI right now they are seperate 
+entities however it should be easy 
+
+We are making alot of headway so we may decide to 
+add graphical analysis of the stocks to the GUI as well
