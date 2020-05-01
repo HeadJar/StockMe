@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 import java.io.IOException;
@@ -28,14 +29,34 @@ public class PullData {
 		return ticker;
 	}
 
-	public String retrieveTickerInfo(String x) throws IOException {
-		String url = "https://markets.businessinsider.com/stocks/" + x + "-stock";
+	public String retrieveTickerInfo(String name) throws IOException {
+		
+		String symbol = "";
+		String n = name.toLowerCase();
+		switch(n) {
+		case "apple":
+			symbol = "aapl";
+			break;
+		case "tsla":
+			symbol = "tsla";
+			break;
+		case "microsoft":
+			symbol = "msft";
+			break;
+		case "amazon":
+			symbol = "amzn";
+			break;
+		default:
+			symbol = "ea";
+		}
+				
+		String url = "https://markets.businessinsider.com/stocks/" + symbol + "-stock";
 		Document doc = Jsoup.connect(url).get();
 		Elements data = doc.getElementsByClass("push-data");
 		
 		
 		//Eventually use Enum to change ticker to name
-		return x + " | " + data.text();
+		return name.toUpperCase() + " | " + data.text();
 
 	}
 
@@ -57,8 +78,8 @@ public class PullData {
 
 	public static void main(String[] args) throws IOException {
 		PullData x = new PullData();
-		x.addData("ApAPL");
-		x.addData("TSLA");
+		x.addData("apple");
+		x.addData("tesla");
 		System.out.println(x.toString());
 
 	}
