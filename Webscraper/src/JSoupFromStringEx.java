@@ -9,14 +9,13 @@ public class JSoupFromStringEx {
 
     public static void main(String[] args) throws IOException {
 
-        String ticker = "AAPL";
+        String ticker = "aapl";
 
-        String url = "https://finance.yahoo.com/quote/" + ticker+ "?p=" + ticker + "&.tsrc=fin-srch";
+        String url = "https://markets.businessinsider.com/stocks/" + ticker + "-stock";
 
         Document doc = Jsoup.connect(url).get();
 
-
-        Elements outerDiv = doc.select("div.trendDown2");
+        Elements outerDiv = doc.getElementsByClass("push-data");
 
 
         String title = doc.title();
@@ -30,4 +29,5 @@ public class JSoupFromStringEx {
         //System.out.println(html);
 
     }
+    
 }
