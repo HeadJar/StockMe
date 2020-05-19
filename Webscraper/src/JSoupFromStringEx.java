@@ -7,10 +7,8 @@ import org.jsoup.select.Elements;
 
 public class JSoupFromStringEx {
 
-    public static void main(String[] args) throws IOException {
-
-        String ticker = "aapl";
-
+    
+    public String stockData(String ticker) throws IOException{
         String url = "https://markets.businessinsider.com/stocks/" + ticker + "-stock";
 
         Document doc = Jsoup.connect(url).get();
@@ -19,15 +17,13 @@ public class JSoupFromStringEx {
 
 
         String title = doc.title();
-        System.out.println(title);
+ 
 
         String html  = Jsoup.connect(url).get().html();
 
 
-        System.out.println(outerDiv.text());
-
-        //System.out.println(html);
-
+        return (outerDiv.text());
     }
+   
     
 }

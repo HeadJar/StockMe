@@ -1,20 +1,43 @@
+
+import java.util.ArrayList;
+
+import java.io.IOException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import org.jsoup.select.Elements;
+
+import javax.swing.table.DefaultTableModel;
+import javax.swing.*;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author jp
  */
+enum StockTickers {
+    AAPL, TSLA, AMZN, BOA, MSFT;
+
+}
+
 public class App extends javax.swing.JFrame {
+
+    ArrayList<String> list;
+    String ticker = "";
 
     /**
      * Creates new form App
      */
     public App() {
         initComponents();
+        list = new ArrayList<String>();
+        ticker = "";
+
     }
 
     /**
@@ -26,57 +49,185 @@ public class App extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        addStockButton = new javax.swing.JButton();
+        textField = new javax.swing.JTextField();
+        stockSymbols = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
+        exitButton = new javax.swing.JToggleButton();
+        clearButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        addStockButton.setText("Add Stock");
+        addStockButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addStockButtonActionPerformed(evt);
+            }
+        });
+
+        textField.setText("Enter the Stock Info here");
+        textField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldActionPerformed(evt);
+            }
+        });
+
+        stockSymbols.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        stockSymbols.setText("Stock Tracker");
+
+        table.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null}
+            },
+            new String [] {
+                "Stocks"
+            }
+        ));
+        table.setToolTipText("");
+        jScrollPane1.setViewportView(table);
+
+        exitButton.setText("Close");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButtonActionPerformed(evt);
+            }
+        });
+
+        clearButton.setText("Clear");
+        clearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(83, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(addStockButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(stockSymbols, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addGap(72, 72, 72))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(stockSymbols, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addStockButton)
+                    .addComponent(exitButton)
+                    .addComponent(clearButton))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldActionPerformed
+
+    }//GEN-LAST:event_textFieldActionPerformed
+
+    private void addStockButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStockButtonActionPerformed
+        addStockToTable();
+    }//GEN-LAST:event_addStockButtonActionPerformed
+
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
+        textField.setText("");
+    }//GEN-LAST:event_clearButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+
                 new App().setVisible(true);
+
             }
-        });
+        }
+        );
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addStockButton;
+    private javax.swing.JButton clearButton;
+    private javax.swing.JToggleButton exitButton;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel stockSymbols;
+    private javax.swing.JTable table;
+    private javax.swing.JTextField textField;
     // End of variables declaration//GEN-END:variables
+
+    public void setTicker(String x) {
+        ticker = x;
+    }
+
+    public String getTicker() {
+        return ticker;
+    }
+
+    public String retrieveTickerInfo(String x) throws IOException {
+        String url = "https://markets.businessinsider.com/stocks/" + x + "-stock";
+        Document doc = Jsoup.connect(url).get();
+        Elements data = doc.getElementsByClass("push-data");
+
+        //Eventually use Enum to change ticker to name
+        return x + " | " + data.text();
+
+    }
+
+    public void addData(String x) {
+        try {
+            list.add(retrieveTickerInfo(x));
+        } catch (IOException e) {
+            System.out.println(x + " is an invalid ticker");
+            JFrame frame = new JFrame();
+            String error = textField.getText() + "is not a correct ticker for a stock";
+            JOptionPane.showMessageDialog(frame,
+                    error,
+                    "Inane warning",
+                    JOptionPane.WARNING_MESSAGE);
+
+        }
+    }
+
+    public void addStockToTable() {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        Object[] s = new Object[1];
+        addData(textField.getText());
+        s[0] = list.get(list.size() - 1);
+        model.addRow(s);
+    }
+
+    public String toString() {
+        String x = "";
+        for (String s : list) {
+            x = x + s + "\n";
+        }
+        return x;
+    }
+
 }

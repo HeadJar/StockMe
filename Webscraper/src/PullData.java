@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
+//import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 //This class is the methods to pull stock data and add it to lists
@@ -55,12 +55,5 @@ public class PullData {
 		return x;
 	}
 
-	public static void main(String[] args) throws IOException {
-		PullData x = new PullData();
-		x.addData("apple");
-		x.addData("TSLA");
-		System.out.println(x.toString());
-
-	}
 
 }
